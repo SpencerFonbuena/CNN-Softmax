@@ -22,7 +22,8 @@ B = A + NUM_CANDLES
 C = 0
 
 #This for loop creates the images and stores the where ts.keras will be able to parse them into labels and feed them in the NN
-for i in range(0, len(df['close']) - NUM_CANDLES + 45):
+#for i in range(0, len(df['close']) - NUM_CANDLES + 45):
+for i in range(0, 36000):
 
     #store the number of candles you want shown on the graph
     storage = df.iloc[A:B]
