@@ -2,12 +2,12 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import csv 
+import mplfinance as mpf
 import pandas as pd
 from matplotlib import pyplot as plt
 import os
 
 
-#Creates the data pipeline        
 data = tf.keras.utils.image_dataset_from_directory('Images', image_size=(512,512))
 
 #standardizes and allows us to use the data papeline
@@ -30,43 +30,43 @@ model = tf.keras.Sequential()
 
 #Model Infrastructure | 150 million parameters
 model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), strides=1 ,padding='same', activation='relu', input_shape=(512,512,3) )) #(512,512,64)
-#model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(512,512,64)
+model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(512,512,64)
 model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2)) #(256,256,64)
 
-#model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(256,256,128)
-#model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(256,256,128)
+model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=(3,3), strides=1 ,padding='same', activation='relu', )) #(256,256,128)
 model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2)) #(128,128,128)
 
-#model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(128,128, 256)
-#model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(128,128, 256)
+model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(128,128,256)
 model.add(tf.keras.layers.BatchNormalization())
-#model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(128,128,256)
+model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(128,128,256)
 model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2)) #(64,64,256)
 
-#model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(64,64,512)
-#model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(64,64,512)
 model.add(tf.keras.layers.BatchNormalization())
-#model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(64,64,512)
+model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(64,64,512)
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(64,64,512)
 model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2)) #(32, 32, 512)
 
-#model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(32,32,512)
-#model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(32,32,512)
 model.add(tf.keras.layers.BatchNormalization())
-#model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(32,32,512)
+model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(32,32,512)
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padding='same', activation='relu')) #(32,32,512)
 model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2)) #(16,16,512)
 
 model.add(tf.keras.layers.Flatten()) #(0, 131072)
-model.add(tf.keras.layers.Dense(units=50, activation='relu'))
-model.add(tf.keras.layers.Dense(units=50, activation='relu'))
+model.add(tf.keras.layers.Dense(units=1000, activation='relu'))
+model.add(tf.keras.layers.Dense(units=1000, activation='relu'))
 model.add(tf.keras.layers.Dense(units=4, activation='softmax', kernel_initializer='he_normal', kernel_regularizer=tf.keras.regularizers.l2(0.01)))
 
 #Back Propogation
-model.compile(optimizer='adam', loss= tf.keras.losses.SparseCategoricalCrossentropy(), metrics=['accuracy', 'FalseNegatives', 'FalsePositives'])
+model.compile(optimizer='adam', loss= tf.keras.losses.SparseCategoricalCrossentropy(), metrics=['accuracy', 'FalseNegatives', 'FalsePositives', 'precision', 'sparsecategoricalaccuracy'])
 
 #Make a log of the training
 logdir = 'logs'
