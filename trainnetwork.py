@@ -61,8 +61,8 @@ model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=(3,3), strides=1 ,padd
 model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2)) #(16,16,512)
 
 model.add(tf.keras.layers.Flatten()) #(0, 131072)
-model.add(tf.keras.layers.Dense(units=100, activation='relu'))
-model.add(tf.keras.layers.Dense(units=100, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10, activation='relu'))
 model.add(tf.keras.layers.Dense(units=4, activation='softmax', kernel_initializer='he_normal', kernel_regularizer=tf.keras.regularizers.l2(0.01)))
 
 #Back Propogation
