@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 import os
 
 
-data = tf.keras.utils.image_dataset_from_directory('Images', image_size=(512,512))
+data = tf.keras.utils.image_dataset_from_directory('Images', image_size=(512,512), label_mode='categorical')
 
 #standardizes and allows us to use the data papeline
 data = data.map(lambda x, y: (x/255, y))
@@ -66,7 +66,7 @@ model.add(tf.keras.layers.Dense(units=10, activation='relu'))
 model.add(tf.keras.layers.Dense(units=4, activation='softmax', kernel_initializer='he_normal', kernel_regularizer=tf.keras.regularizers.l2(0.01)))
 
 #Back Propogation
-model.compile(optimizer='adam', loss= tf.keras.losses.SparseCategoricalCrossentropy(), metrics=['accuracy'], batch_size=16)
+model.compile(optimizer='adam', loss= tf.keras.losses.CategoricalCrossentropy(), metrics=['accuracy'], batch_size=16)
 
 #Make a log of the training
 logdir = 'logs'
