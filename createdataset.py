@@ -9,7 +9,7 @@ import os
 
 
 #HYPER-PARAMETERS
-NUM_CANDLES = 90
+NUM_CANDLES = 170
 
 #Read in the data
 df = pd.read_csv('Raw_Data/nq5.txt', header = None, names = ['Date', 'open', 'high', 'low', 
@@ -17,13 +17,13 @@ df = pd.read_csv('Raw_Data/nq5.txt', header = None, names = ['Date', 'open', 'hi
 
 
 #initialize number of candles to be shown on graph
-A = 0
+A = 36000
 B = A + NUM_CANDLES
 C = 0
 
 #This for loop creates the images and stores the where ts.keras will be able to parse them into labels and feed them in the NN
 #for i in range(0, len(df['close']) - NUM_CANDLES + 45):
-for i in range(0, 36000):
+for i in range(0, 70000):
 
     #store the number of candles you want shown on the graph
     storage = df.iloc[A:B]
@@ -89,7 +89,7 @@ for i in range(0, 36000):
     except:
         break
        
-    #increment the graph by one 15 minute interval 
+    #increment the graph by one 5 minute interval 
     A += 1
     B += 1
     C += 1
