@@ -66,7 +66,7 @@ model.add(tf.keras.layers.Dense(units=10, activation='relu'))
 model.add(tf.keras.layers.Dense(units=4, activation='softmax', kernel_initializer='he_normal', kernel_regularizer=tf.keras.regularizers.l2(0.01)))
 
 #Back Propogation
-model.compile(optimizer='adam', loss= tf.keras.losses.SparseCategoricalCrossentropy(), metrics=['accuracy'])
+model.compile(optimizer='adam', loss= tf.keras.losses.SparseCategoricalCrossentropy(), metrics=['accuracy'], batch_size=16)
 
 #Make a log of the training
 logdir = 'logs'
