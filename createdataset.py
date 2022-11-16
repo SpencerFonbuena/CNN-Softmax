@@ -17,13 +17,13 @@ df = pd.read_csv('Raw_Data/nq5.txt', header = None, names = ['Date', 'open', 'hi
 
 
 #initialize number of candles to be shown on graph
-A = 36000
+A = 70000
 B = A + NUM_CANDLES
 C = 0
 
 #This for loop creates the images and stores the where ts.keras will be able to parse them into labels and feed them in the NN
 #for i in range(0, len(df['close']) - NUM_CANDLES + 45):
-for i in range(0, 70000):
+for i in range(0, 700000):
 
     #store the number of candles you want shown on the graph
     storage = df.iloc[A:B]
@@ -56,17 +56,17 @@ for i in range(0, 70000):
             pathway = 1
         #Check if price has increased two percent
         if df['high'][label_counter] >= two_high and pathway == 1:
-            file_path = 'Images/two_up/' + str(i) + '.png'
+            file_path = 'Images/two_up/' + str(B) + '.png'
             mpf.plot(storage,type='candle',savefig=file_path , warn_too_much_data = 10000000, style = s, volume=True)
             #this resized the image to be a 512x512 resolution imgae
-            sized_image = Image.open('Images/two_up/' + str(i) + '.png').crop((177,40,689,552)).save('Images/two_up/' + str(i) + '.png')
+            sized_image = Image.open('Images/two_up/' + str(B) + '.png').crop((177,40,689,552)).save('Images/two_up/' + str(B) + '.png')
         
         #check if price has reversed back down to the one percent marker
         elif df['low'][label_counter] <= one_low and pathway == 1:
-            file_path = 'Images/one_up/' + str(i) + '.png'
+            file_path = 'Images/one_up/' + str(B) + '.png'
             mpf.plot(storage,type='candle',savefig=file_path , warn_too_much_data = 10000000, style = s, volume=True)
             #this resized the image to be a 512x512 resolution imgae
-            sized_image = Image.open('Images/one_up/' + str(i) + '.png').crop((177,40,689,552)).save('Images/one_up/' + str(i) + '.png')
+            sized_image = Image.open('Images/one_up/' + str(B) + '.png').crop((177,40,689,552)).save('Images/one_up/' + str(B) + '.png')
         
         #if the price moved down 1 pecent first, this will check if it is a two to one, or a one to one trade
         while df['high'][label_counter] <= one_high and df['low'][label_counter] >= two_low and pathway != 1:
@@ -75,17 +75,17 @@ for i in range(0, 70000):
     
         #check if the price has continued down two percent
         if df['low'][label_counter] <= two_low and pathway == 2:
-            file_path = 'Images/two_down/' + str(i) + '.png'
+            file_path = 'Images/two_down/' + str(B) + '.png'
             mpf.plot(storage,type='candle',savefig=file_path , warn_too_much_data = 10000000, style = s, volume=True)
             #this resized the image to be a 512x512 resolution imgae
-            sized_image = Image.open('Images/two_down/' + str(i) + '.png').crop((177,40,689,552)).save('Images/two_down/' + str(i) + '.png')
+            sized_image = Image.open('Images/two_down/' + str(B) + '.png').crop((177,40,689,552)).save('Images/two_down/' + str(B) + '.png')
         
         #check if price reversed back up to the 1 percent above marker
         elif df['high'][label_counter] >= one_high and pathway == 2:
-            file_path = 'Images/one_down/' + str(i) + '.png'
+            file_path = 'Images/one_down/' + str(B) + '.png'
             mpf.plot(storage,type='candle',savefig=file_path , warn_too_much_data = 10000000, style = s, volume=True)
             #this resized the image to be a 512x512 resolution imgae
-            sized_image = Image.open('Images/one_down/' + str(i) + '.png').crop((177,40,689,552)).save('Images/one_down/' + str(i) + '.png')
+            sized_image = Image.open('Images/one_down/' + str(B) + '.png').crop((177,40,689,552)).save('Images/one_down/' + str(B) + '.png')
     except:
         break
        
